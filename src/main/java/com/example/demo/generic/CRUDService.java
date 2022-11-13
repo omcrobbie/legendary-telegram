@@ -2,9 +2,6 @@ package com.example.demo.generic;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.utils.DataNotFoundException;
 
 public class CRUDService<T extends BaseEntity, R extends IEntityRepository<T>, M extends IEntityMapper<T>>
@@ -14,8 +11,8 @@ public class CRUDService<T extends BaseEntity, R extends IEntityRepository<T>, M
 
     private M mapper;
 
-    public CRUDService(R repostory, M mapper) {
-        this.repository = repostory;
+    public CRUDService(R repository, M mapper) {
+        this.repository = repository;
         this.mapper = mapper;
     }
 
@@ -43,7 +40,6 @@ public class CRUDService<T extends BaseEntity, R extends IEntityRepository<T>, M
         repository.delete(found);
     }
 
-    @Override
     public List<T> getAll() {
         return (List<T>) repository.findAll();
     }

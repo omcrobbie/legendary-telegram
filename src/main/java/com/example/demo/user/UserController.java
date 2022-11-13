@@ -1,18 +1,15 @@
 package com.example.demo.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.generic.EntityController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.generic.EntityController;
-
 @RestController
 @RequestMapping(path = "/users")
-public class UserController extends EntityController<User, UserRepository, UserMapper> {
+public class UserController
+  extends EntityController<User, UserRepository, UserMapper> {
 
-    @Autowired
-    public UserController(UserService crudService) {
-        super(crudService);
-    }
-
+  public UserController(UserService service) {
+    super(service);
+  }
 }
