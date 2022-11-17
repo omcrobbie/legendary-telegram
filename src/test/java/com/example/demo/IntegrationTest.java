@@ -37,4 +37,8 @@ public abstract class IntegrationTest {
     throws JsonProcessingException {
     return mapper.convertValue(responseEntity.getBody(), ref);
   }
+
+  public <T> T getDataLastResponse(Class<T> ref) {
+    return mapper.convertValue(responseEntity.getBody(), ref);
+  }
 }

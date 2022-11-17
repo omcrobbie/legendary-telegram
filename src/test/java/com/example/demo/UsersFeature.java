@@ -26,7 +26,7 @@ public class UsersFeature extends IntegrationTest {
   @And("I assert the name is {string}")
   public void validateBody(String expected)
     throws JsonMappingException, JsonProcessingException {
-    List<User> users = getDataLastResponse(new TypeReference<List<User>>() {});
-    assertEquals(users.get(0).getName(), expected);
+    User user = getDataLastResponse(User.class);
+    assertEquals(user.getName(), expected);
   }
 }
