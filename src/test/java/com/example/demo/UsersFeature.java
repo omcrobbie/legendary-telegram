@@ -1,24 +1,32 @@
 package com.example.demo;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.example.demo.user.UserRepository;
-import com.example.demo.user.UserService;
-import com.example.demo.utils.DataNotFoundException;
+import com.example.demo.user.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
-public class UsersFeature {
+public class UsersFeature extends IntegrationTest {
 
-  @Autowired
-  private UserRepository userRepository;
+  @When("I call GET {string}")
+  public void getAll(String url) {
+    get(url);
+  }
 
-  @Autowired
-  private UserService service;
+  @Then("I get status code {int}")
+  public void validateCode(int code) {
+    assertEquals(getLastStatus(), code);
+  }
 
-  @When("I ensure his name is {string}")
-  public void getAll(String name) throws DataNotFoundException {
-    assertEquals(userRepository.count(), 5);
-    assertEquals(service.getOne("1").getName(), name);
+  @And("I assert the name is {string}")
+  public void validateBody(String expected)
+    throws JsonMappingException, JsonProcessingException {
+    List<User> users = getDataLastResponse(new TypeReference<List<User>>() {});
+    assertEquals(users.get(0).getName(), expected);
   }
 }

@@ -1,3 +1,5 @@
 Feature: users can be retrieved
   Scenario: client makes call to GET /users
-    When I ensure his name is "John"
+    When I call GET "/users"
+    Then I get status code 200
+    And I assert the name is "John"
