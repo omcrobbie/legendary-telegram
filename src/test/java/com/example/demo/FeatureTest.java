@@ -6,12 +6,14 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(Cucumber.class)
 @CucumberContextConfiguration
+@ContextConfiguration(classes = { TestApplication.class })
 @SpringBootTest(
-  classes = DemoApplication.class,
-  webEnvironment = WebEnvironment.RANDOM_PORT
+  webEnvironment = WebEnvironment.RANDOM_PORT,
+  classes = DemoApplication.class
 )
 @CucumberOptions(features = "src/test/resources")
 public class FeatureTest {}

@@ -3,15 +3,25 @@ package com.example.demo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.demo.user.User;
+import com.example.demo.user.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class UsersFeature extends IntegrationTest {
+public class UsersFeatureTest extends IntegrationTest {
+
+  @Autowired
+  private UserService userService;
+
+  @Before
+  public void seed_db() {
+    userService.addOne(new User("Jimmy"));
+    // Mockito.lenient().when(userRepository.findById(anyLong())).thenReturn(null);
+  }
 
   @When("I call GET {string}")
   public void getAll(String url) {

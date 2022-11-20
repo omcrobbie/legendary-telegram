@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 public class DemoApplication {
 
   @Autowired
-  private UserRepository userRepository;
+  UserRepository userRepository;
 
   @Autowired
   private FriendRepository friendRepository;
