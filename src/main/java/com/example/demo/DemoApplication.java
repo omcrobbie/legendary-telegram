@@ -23,21 +23,20 @@ public class DemoApplication {
   public static void main(String[] args) {
     SpringApplication.run(DemoApplication.class, args);
   }
-
-  @Bean
-  CommandLineRunner init() {
-    return args -> {
-      Stream
-        .of("John", "Julie", "Jennifer", "Helen", "Rachel")
-        .forEach(name -> {
-          User user = new User(name);
-          userRepository.save(user);
-          if (name == "John") {
-            Friend friend = new Friend("Sam", "roommate", user);
-            friendRepository.save(friend);
-          }
-        });
-      userRepository.findAll().forEach(System.out::println);
-    };
-  }
+  // @Bean
+  // CommandLineRunner init() {
+  //   return args -> {
+  //     Stream
+  //       .of("John", "Julie", "Jennifer", "Helen", "Rachel")
+  //       .forEach(name -> {
+  //         User user = new User(name);
+  //         userRepository.save(user);
+  //         if (name == "John") {
+  //           Friend friend = new Friend("Sam", "roommate", user);
+  //           friendRepository.save(friend);
+  //         }
+  //       });
+  //     userRepository.findAll().forEach(System.out::println);
+  //   };
+  // }
 }
