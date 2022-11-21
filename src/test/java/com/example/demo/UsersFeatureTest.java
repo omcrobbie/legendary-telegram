@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.demo.user.User;
@@ -10,12 +12,15 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UsersFeatureTest extends IntegrationTest {
+public class UsersFeatureTest {
 
   @Autowired
   private UserService userService;
+
+  private Response response;
 
   @Before
   public void seed_db() {
@@ -25,18 +30,18 @@ public class UsersFeatureTest extends IntegrationTest {
 
   @When("I call GET {string}")
   public void getAll(String url) {
-    get(url);
+    response = get(url);
   }
 
   @Then("I get status code {int}")
   public void validateCode(int code) {
-    assertEquals(getLastStatus(), code);
+    assertEquals(response.statusCode(), code);
   }
 
   @And("I assert the name is {string}")
   public void validateBody(String expected)
     throws JsonMappingException, JsonProcessingException {
-    User user = getDataLastResponse(User.class);
+    User user = response.getBody().as(User.class);
     assertEquals(user.getName(), expected);
   }
 }

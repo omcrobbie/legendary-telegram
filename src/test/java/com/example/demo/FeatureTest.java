@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 @CucumberContextConfiguration
 @ContextConfiguration(classes = { TestApplication.class })
 @SpringBootTest(
-  webEnvironment = WebEnvironment.RANDOM_PORT,
+  webEnvironment = WebEnvironment.DEFINED_PORT,
   classes = DemoApplication.class
 )
 @CucumberOptions(features = "src/test/resources")
