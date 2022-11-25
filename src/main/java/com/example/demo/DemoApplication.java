@@ -1,15 +1,10 @@
 package com.example.demo;
 
-import com.example.demo.friend.Friend;
 import com.example.demo.friend.FriendRepository;
-import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
-import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoApplication {

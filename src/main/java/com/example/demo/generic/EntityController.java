@@ -35,7 +35,7 @@ public abstract class EntityController<
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping(path = "/{id}", produces = "application/json")
   public ResponseEntity<String> updateUser(
     @PathVariable String id,
     @RequestBody T entity
