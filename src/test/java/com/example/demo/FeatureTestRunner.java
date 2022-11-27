@@ -12,4 +12,4 @@ import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources")
-public class FeatureTest {}
+public class FeatureTestRunner {}
