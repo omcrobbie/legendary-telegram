@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.common;
 
 import io.restassured.response.Response;
 
