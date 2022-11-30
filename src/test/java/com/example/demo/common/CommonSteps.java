@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.util.List;
-
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import io.cucumber.java.en.Then;
@@ -51,8 +49,9 @@ public class CommonSteps extends IntegrationTest {
   @Then("I assert entity with {string} {string} exists in response")
   public void validateBodyEntity(String jsonPath, String expected) {
     if (!expected.isEmpty()) {
-      List<String> body = getResponse().jsonPath().getList(jsonPath);
+      String body = getResponse().jsonPath().getString(String.format("findAll{it.name=='%s'}.name[0]", expected));
       assertTrue(body.contains(expected));
     }
   }
+  // https://advancedtestautomation.blogspot.com/2020/03/tricks-to-query-or-filter-json-using.html
 }
