@@ -2,7 +2,7 @@ package com.example.demo.mock;
 
 import static org.mockito.Mockito.when;
 
-import com.example.demo.DemoApplication;
+import com.example.demo.TestContext;
 import com.example.demo.common.IntegrationTest;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DemoApplication.class)
+@SpringBootTest(classes = TestContext.class)
 @CucumberContextConfiguration
 public class MockSteps extends IntegrationTest {
 

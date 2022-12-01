@@ -1,36 +1,41 @@
 package com.example.demo.common;
 
-import static io.restassured.RestAssured.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import java.io.File;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import java.nio.file.Files;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 public class CommonSteps extends IntegrationTest {
 
-  @LocalServerPort
-  private int port;
-
-  private String getLocalPath(String url) {
-    return String.format("http://localhost:%d%s", port, url);
-  }
+  @Autowired
+  private MockMvc mvc;
 
   @When("I call GET {string}")
-  public void getPath(String url) {
-    setResponse(get(getLocalPath(url)));
+  public void getPath(String url) throws Exception {
+    setResponse(mvc.perform(get(url)));
   }
 
   @When("I call POST {string} with payload from {string}")
-  public void postPath(String url, String payloadName) {
+  public void postPath(String url, String payloadName) throws Exception {
     String filePath = getClass().getResource(String.format("/data/%s.json", payloadName)).getPath();
     File file = new File(filePath);
-    Response response = given().contentType(ContentType.JSON).body(file).when().post(getLocalPath(url));
+    ResultActions response = mvc
+        .perform(
+            post(url).contentType(MediaType.APPLICATION_JSON).content(Files.readAllBytes(file.toPath())));
     setResponse(response);
   }
 
@@ -40,17 +45,17 @@ public class CommonSteps extends IntegrationTest {
   }
 
   @Then("I assert property {string} is {string}")
-  public void validateBody(String jsonPath, String expected) {
+  public void validateBody(String jsonPath, String expected) throws Exception {
     if (!expected.isEmpty()) {
-      assertEquals(getResponse().jsonPath().get(jsonPath), expected);
+      getResponse().andExpect(MockMvcResultMatchers.jsonPath(jsonPath).value(expected));
     }
   }
 
   @Then("I assert entity with {string} {string} exists in response")
-  public void validateBodyEntity(String jsonPath, String expected) {
+  public void validateBodyEntity(String prop, String expected) throws Exception {
     if (!expected.isEmpty()) {
-      String body = getResponse().jsonPath().getString(String.format("findAll{it.name=='%s'}.name[0]", expected));
-      assertTrue(body.contains(expected));
+      String query = String.format("$.[?(@.%s=='%s')].%s", prop, expected, prop);
+      getResponse().andExpect(MockMvcResultMatchers.jsonPath(query).value(expected));
     }
   }
   // https://advancedtestautomation.blogspot.com/2020/03/tricks-to-query-or-filter-json-using.html

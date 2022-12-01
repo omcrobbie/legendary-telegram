@@ -1,24 +1,20 @@
 package com.example.demo.common;
 
-import io.restassured.response.Response;
+import org.springframework.test.web.servlet.ResultActions;
 
 public class IntegrationTest {
 
-  private Response response;
+  private ResultActions response;
 
-  public Response getResponse() {
+  public ResultActions getResponse() {
     return response;
   }
 
-  public void setResponse(Response response) {
+  public void setResponse(ResultActions response) {
     this.response = response;
   }
 
   public int getLastResponseStatusCode() {
-    return response.statusCode();
-  }
-
-  public String getLastResponseString() {
-    return response.getBody().asString();
+    return response.andReturn().getResponse().getStatus();
   }
 }
