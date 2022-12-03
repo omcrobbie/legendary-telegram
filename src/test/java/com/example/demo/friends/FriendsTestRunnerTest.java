@@ -7,6 +7,6 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features/FriendsMock.feature", extraGlue = "com.example.demo.common")
-public class FriendsTestRunner {
+public class FriendsTestRunnerTest {
 
 }

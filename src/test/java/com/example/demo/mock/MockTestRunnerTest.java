@@ -6,5 +6,5 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features/UsersMock.feature", extraGlue = "com.example.demo.common")
-public class MockTestRunner {
+public class MockTestRunnerTest {
 }

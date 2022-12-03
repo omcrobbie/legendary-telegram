@@ -2,6 +2,7 @@ package com.example.demo.common;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -59,4 +60,9 @@ public class CommonSteps extends IntegrationTest {
     }
   }
   // https://advancedtestautomation.blogspot.com/2020/03/tricks-to-query-or-filter-json-using.html
+
+  @Then("I assert {int} entities are returned")
+  public void i_assert_entities_are_returned(Integer num) throws Exception {
+    getResponse().andExpect(MockMvcResultMatchers.jsonPath("$..name", hasSize(num)));
+  }
 }
