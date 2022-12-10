@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.IT.common;
 
 import org.springframework.test.web.servlet.ResultActions;
 

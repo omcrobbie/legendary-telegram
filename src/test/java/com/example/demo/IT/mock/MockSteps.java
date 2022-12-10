@@ -1,23 +1,29 @@
-package com.example.demo.mock;
+package com.example.demo.IT.mock;
 
 import static org.mockito.Mockito.when;
 
-import com.example.demo.TestContext;
-import com.example.demo.common.IntegrationTest;
-import com.example.demo.user.User;
-import com.example.demo.user.UserRepository;
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.Given;
-import io.cucumber.spring.CucumberContextConfiguration;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+
+import com.example.demo.DemoApplication;
+import com.example.demo.IT.TestContext;
+import com.example.demo.IT.common.IntegrationTest;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
+import io.cucumber.spring.CucumberContextConfiguration;
 
 @SpringBootTest(classes = TestContext.class)
 @CucumberContextConfiguration
+@ContextConfiguration(classes = DemoApplication.class)
 public class MockSteps extends IntegrationTest {
 
   @Autowired
