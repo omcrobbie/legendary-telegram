@@ -9,9 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 
-import com.example.demo.DemoApplication;
 import com.example.demo.IT.TestContext;
 import com.example.demo.IT.common.IntegrationTest;
 import com.example.demo.friend.Friend;
@@ -25,7 +23,6 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @SpringBootTest(classes = TestContext.class)
 @CucumberContextConfiguration
-@ContextConfiguration(classes = DemoApplication.class)
 public class FriendsSteps extends IntegrationTest {
 
     @MockBean
